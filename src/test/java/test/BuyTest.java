@@ -47,7 +47,7 @@ public class BuyTest {
         mainPage.buttonBuy.click();
         mainPage.validInfo(DataHelper.getValidAuthInfo());
         mainPage.cardNumberField.sendKeys(Keys.BACK_SPACE);
-        mainPage.cardNumberField.sendKeys("g");
+        mainPage.cardNumberField.setValue(DataHelper.generateRandom3Letters());
         mainPage.buttonContinue.click();
         mainPage.wrongFormat();
     }
@@ -56,8 +56,8 @@ public class BuyTest {
         var mainPage = open("http://localhost:8080", MainPage.class);
         mainPage.buttonBuy.click();
         mainPage.validInfo(DataHelper.getValidAuthInfo());
-        for (int i = 0; i < 16; i++)
-            mainPage.cardNumberField.sendKeys(Keys.BACK_SPACE);
+        mainPage.cardNumberField.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        mainPage.cardNumberField.sendKeys(Keys.BACK_SPACE);
         mainPage.buttonContinue.click();
         mainPage.wrongFormat();
     }
@@ -66,9 +66,9 @@ public class BuyTest {
         var mainPage = open("http://localhost:8080", MainPage.class);
         mainPage.buttonBuy.click();
         mainPage.validInfo(DataHelper.getValidAuthInfo());
-        for (int i = 0; i < 16; i++)
-            mainPage.cardNumberField.sendKeys(Keys.BACK_SPACE);
-        mainPage.cardNumberField.setValue("5");
+        mainPage.cardNumberField.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        mainPage.cardNumberField.sendKeys(Keys.BACK_SPACE);
+        mainPage.cardNumberField.setValue(" ");
         mainPage.buttonContinue.click();
         mainPage.wrongFormat();
     }
@@ -77,8 +77,8 @@ public class BuyTest {
         var mainPage = open("http://localhost:8080", MainPage.class);
         mainPage.buttonBuy.click();
         mainPage.validInfo(DataHelper.getValidAuthInfo());
-        for (int i = 0; i < 16; i++)
-            mainPage.cardNumberField.sendKeys(Keys.BACK_SPACE);
+        mainPage.cardNumberField.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        mainPage.cardNumberField.sendKeys(Keys.BACK_SPACE);
         mainPage.cardNumberField.setValue("0000000000000000");
         mainPage.buttonContinue.click();
         mainPage.wrongFormat();
@@ -146,7 +146,7 @@ public class BuyTest {
         mainPage.buttonBuy.click();
         mainPage.validInfo(DataHelper.getValidAuthInfo());
         mainPage.yearField.sendKeys(Keys.BACK_SPACE,Keys.BACK_SPACE);
-        mainPage.yearField.setValue("29");
+        mainPage.yearField.setValue(DataHelper.generateInvalidYear("+"));
         mainPage.buttonContinue.click();
         mainPage.wrongCardExpiration();
     }
@@ -156,7 +156,7 @@ public class BuyTest {
         mainPage.buttonBuy.click();
         mainPage.validInfo(DataHelper.getValidAuthInfo());
         mainPage.yearField.sendKeys(Keys.BACK_SPACE,Keys.BACK_SPACE);
-        mainPage.yearField.setValue("21");
+        mainPage.yearField.setValue(DataHelper.generateInvalidYear("-"));
         mainPage.buttonContinue.click();
         mainPage.wrongCardExpiration();
     }
@@ -166,7 +166,7 @@ public class BuyTest {
         mainPage.buttonBuy.click();
         mainPage.validInfo(DataHelper.getValidAuthInfo());
         mainPage.yearField.sendKeys(Keys.BACK_SPACE,Keys.BACK_SPACE);
-        mainPage.yearField.setValue("go");
+        mainPage.yearField.setValue(DataHelper.generateRandom3Letters());
         mainPage.buttonContinue.click();
         mainPage.wrongFormat();
     }
@@ -204,8 +204,8 @@ public class BuyTest {
         var mainPage = open("http://localhost:8080", MainPage.class);
         mainPage.buttonBuy.click();
         mainPage.validInfo(DataHelper.getValidAuthInfo());
-        for (int i = 0; i < 30; i++)
-            mainPage.nameField.sendKeys(Keys.BACK_SPACE);
+        mainPage.nameField.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        mainPage.nameField.sendKeys(Keys.BACK_SPACE);
         mainPage.nameField.setValue("Привет Олег");
         mainPage.buttonContinue.click();
         mainPage.wrongFormat();
@@ -215,9 +215,9 @@ public class BuyTest {
         var mainPage = open("http://localhost:8080", MainPage.class);
         mainPage.buttonBuy.click();
         mainPage.validInfo(DataHelper.getValidAuthInfo());
-        for (int i = 0; i < 30; i++)
-            mainPage.nameField.sendKeys(Keys.BACK_SPACE);
-        mainPage.nameField.setValue("PO40kcvmk4N_39)");
+        mainPage.nameField.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        mainPage.nameField.sendKeys(Keys.BACK_SPACE);
+        mainPage.nameField.setValue(DataHelper.generateInvalidNameOfBothify());
         mainPage.buttonContinue.click();
         mainPage.wrongFormat();
     }
@@ -226,9 +226,9 @@ public class BuyTest {
         var mainPage = open("http://localhost:8080", MainPage.class);
         mainPage.buttonBuy.click();
         mainPage.validInfo(DataHelper.getValidAuthInfo());
-        for (int i = 0; i < 30; i++)
-            mainPage.nameField.sendKeys(Keys.BACK_SPACE);
-        mainPage.nameField.setValue("Ben Дурак");
+        mainPage.nameField.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        mainPage.nameField.sendKeys(Keys.BACK_SPACE);
+        mainPage.nameField.setValue(DataHelper.generateInvalidNameWithRussian());
         mainPage.buttonContinue.click();
         mainPage.wrongFormat();
     }
@@ -237,9 +237,9 @@ public class BuyTest {
         var mainPage = open("http://localhost:8080", MainPage.class);
         mainPage.buttonBuy.click();
         mainPage.validInfo(DataHelper.getValidAuthInfo());
-        for (int i = 0; i < 30; i++)
-            mainPage.nameField.sendKeys(Keys.BACK_SPACE);
-        mainPage.nameField.setValue("Ben, *");
+        mainPage.nameField.sendKeys(Keys.chord(Keys.CONTROL, "a"));
+        mainPage.nameField.sendKeys(Keys.BACK_SPACE);
+        mainPage.nameField.setValue(DataHelper.generateInvalidNameWithSomeSymbols());
         mainPage.buttonContinue.click();
         mainPage.wrongFormat();
     }
@@ -249,7 +249,7 @@ public class BuyTest {
         mainPage.buttonBuy.click();
         mainPage.validInfo(DataHelper.getValidAuthInfo());
         mainPage.codeField.sendKeys(Keys.BACK_SPACE, Keys.BACK_SPACE, Keys.BACK_SPACE);
-        mainPage.codeField.setValue("54h");
+        mainPage.codeField.setValue(DataHelper.generateWrongStringForCVC());
         mainPage.buttonContinue.click();
         mainPage.wrongFormat();
     }

@@ -34,10 +34,45 @@ public class DataHelper {
         return monthArray[monthNumber];
     }
     public static String generateValidYear() {
-        String [] yearArray = {"23", "24", "25", "26", "27", "28"};
+        java.time.LocalDate currentDate = java.time.LocalDate.now();
+        String date = currentDate.toString();
+        date = date.substring( 2 , 4 );
+        Integer dateInt = Integer.parseInt(date);
+        Integer [] yearArray = {dateInt, dateInt+1, dateInt+2, dateInt+3, dateInt+4};
         Random random = new Random();
         int yearNumber = random.nextInt(yearArray.length);
-        return yearArray[yearNumber];
+        return yearArray[yearNumber].toString();
+    }
+    public static String generateRandom3Letters() {
+        return faker.letterify("???");
+    }
+    public static String generateInvalidYear(String whatToDo) {
+        java.time.LocalDate currentDate = java.time.LocalDate.now();
+        String date = currentDate.toString();
+        date = date.substring( 2 , 4 );
+        Integer dateInt = Integer.parseInt(date);
+        Random rand = new Random();
+        Integer random = new Integer(0);
+        if (whatToDo.equals("+")) {
+            random = rand.nextInt(99 - (dateInt + 5));
+        }
+        if (whatToDo.equals("-")) {
+            random = rand.nextInt(dateInt - 1);
+        }
+        dateInt = dateInt + random;
+        return dateInt.toString();
+    }
+    public static String generateWrongStringForCVC() {
+        return faker.letterify("58?");
+    }
+    public static String generateInvalidNameOfBothify() {
+        return faker.bothify("4O???%)??30d?");
+    }
+    public static String generateInvalidNameWithRussian() {
+        return faker.name().firstName() + ' ' + "Алексий";
+    }
+    public static String generateInvalidNameWithSomeSymbols() {
+        return faker.name().firstName() + ' ' + "%(.";
     }
     public static String generateValidCVC() {
         return faker.numerify("###");
@@ -60,7 +95,7 @@ public class DataHelper {
         String cardHolder = generateValidName();
         String CVC = generateValidCVC();
 
-        return new AuthInfo (cardNumber, year, month, cardHolder, CVC);
+        return new AuthInfo (cardNumber, month, year, cardHolder, CVC);
     }
 
     public static AuthInfo getDeclinedAuthInfo() {
