@@ -3,7 +3,8 @@ package data;
 import com.github.javafaker.Faker;
 import lombok.Value;
 
-import java.util.Calendar;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Locale;
 import java.util.Random;
 
@@ -20,47 +21,17 @@ public class DataHelper {
     public static String getDeclinedCardNumber() {
         return new String("4444 4444 4444 4442");
     }
-    public static String generateValidMonth(String year) {
-        String [] monthArray = {"12", "11", "10", "09", "08", "07", "06", "05", "04", "03", "02", "01"};
-        Random random = new Random();
-        Calendar calendar = Calendar.getInstance();
-        int month = calendar.get(Calendar.MONTH);
-        Integer monthNumber = new Integer(0);
-        if (year.equals("23")) {
-            monthNumber = random.nextInt(monthArray.length - 10);
-        } else {
-            monthNumber = random.nextInt(monthArray.length);
-        }
-        return monthArray[monthNumber];
+    public static String generateValidMonth(){
+        return LocalDate.now().format(DateTimeFormatter.ofPattern("MM"));
     }
-    public static String generateValidYear() {
-        java.time.LocalDate currentDate = java.time.LocalDate.now();
-        String date = currentDate.toString();
-        date = date.substring( 2 , 4 );
-        Integer dateInt = Integer.parseInt(date);
-        Integer [] yearArray = {dateInt, dateInt+1, dateInt+2, dateInt+3, dateInt+4};
-        Random random = new Random();
-        int yearNumber = random.nextInt(yearArray.length);
-        return yearArray[yearNumber].toString();
+    public static String generateValidYear(){
+        return LocalDate.now().format(DateTimeFormatter.ofPattern("YY"));
     }
     public static String generateRandom3Letters() {
         return faker.letterify("???");
     }
-    public static String generateInvalidYear(String whatToDo) {
-        java.time.LocalDate currentDate = java.time.LocalDate.now();
-        String date = currentDate.toString();
-        date = date.substring( 2 , 4 );
-        Integer dateInt = Integer.parseInt(date);
-        Random rand = new Random();
-        Integer random = new Integer(0);
-        if (whatToDo.equals("+")) {
-            random = rand.nextInt(99 - (dateInt + 5));
-        }
-        if (whatToDo.equals("-")) {
-            random = rand.nextInt(dateInt - 1);
-        }
-        dateInt = dateInt + random;
-        return dateInt.toString();
+    public static String generateInvalidYear(Integer plusYear) {
+        return LocalDate.now().plusYears(plusYear).format(DateTimeFormatter.ofPattern("YY"));
     }
     public static String generateWrongStringForCVC() {
         return faker.letterify("58?");
@@ -82,16 +53,16 @@ public class DataHelper {
     }
     public static AuthInfo getValidAuthInfo() {
         String cardNumber = generateValidCardNumber();
+        String month = generateValidMonth();
         String year = generateValidYear();
-        String month = generateValidMonth(year);
         String cardHolder = generateValidName();
         String CVC = generateValidCVC();
         return new AuthInfo (cardNumber, month, year, cardHolder, CVC);
     }
     public static AuthInfo getApprovedAuthInfo() {
         String cardNumber = getApprovedCardNumber();
+        String month = generateValidMonth();
         String year = generateValidYear();
-        String month = generateValidMonth(year);
         String cardHolder = generateValidName();
         String CVC = generateValidCVC();
 
@@ -101,11 +72,11 @@ public class DataHelper {
     public static AuthInfo getDeclinedAuthInfo() {
         String cardNumber = getDeclinedCardNumber();
         String year = generateValidYear();
-        String month = generateValidMonth(year);
+        String month = generateValidMonth();
         String cardHolder = generateValidName();
         String CVC = generateValidCVC();
 
-        return new AuthInfo (cardNumber, year, month, cardHolder, CVC);
+        return new AuthInfo (cardNumber, month, year, cardHolder, CVC);
     }
     @Value
     public static class AuthInfo {

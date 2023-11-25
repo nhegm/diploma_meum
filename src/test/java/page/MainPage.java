@@ -39,18 +39,12 @@ public class MainPage {
         successNote.shouldHave(exactText("Успешно"), Duration.ofSeconds(10));
         successNote.shouldBe(visible);
     }
-
     public void error() {
         errorNote.shouldHave(exactText("Ошибка"), Duration.ofSeconds(10));
         errorNote.shouldBe(visible);
     }
-    public void wrongFormat() {
-        substringMessage.shouldHave(exactText("Неверный формат"));
-    }
-    public void wrongCardExpiration() {
-        substringMessage.shouldHave(exactText("Неверно указан срок действия карты"));
-    }
-    public void cardExpired() {
-        substringMessage.shouldHave(exactText("Истёк срок действия карты"));
+    public void wrongData(String subsMessage) {
+        substringMessage.shouldHave(exactText(subsMessage));
+        substringMessage.shouldBe(visible);
     }
 }

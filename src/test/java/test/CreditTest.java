@@ -15,7 +15,7 @@ public class CreditTest {
         mainPage.cardNumberField.sendKeys(Keys.BACK_SPACE);
         mainPage.cardNumberField.setValue(DataHelper.generateRandom3Letters());
         mainPage.buttonContinue.click();
-        mainPage.wrongFormat();
+        mainPage.wrongData("Неверный формат");
     }
     @Test   // 2
     void shouldNotCreditWithCardNumberEmpty() {
@@ -25,7 +25,7 @@ public class CreditTest {
         mainPage.cardNumberField.sendKeys(Keys.chord(Keys.CONTROL, "a"));
         mainPage.cardNumberField.sendKeys(Keys.BACK_SPACE);
         mainPage.buttonContinue.click();
-        mainPage.wrongFormat();
+        mainPage.wrongData("Неверный формат");
     }
     @Test   // 3
     void shouldNotCreditWithCardNumber1Space() {
@@ -36,7 +36,7 @@ public class CreditTest {
         mainPage.cardNumberField.sendKeys(Keys.BACK_SPACE);
         mainPage.cardNumberField.setValue(" ");
         mainPage.buttonContinue.click();
-        mainPage.wrongFormat();
+        mainPage.wrongData("Неверный формат");
     }
     @Test   // 4
     void shouldNotCreditWithCardNumber16Nulls() {
@@ -47,7 +47,7 @@ public class CreditTest {
         mainPage.cardNumberField.sendKeys(Keys.BACK_SPACE);
         mainPage.cardNumberField.setValue("0000000000000000");
         mainPage.buttonContinue.click();
-        mainPage.wrongFormat();
+        mainPage.wrongData("Неверный формат");
     }
     @Test   // 5
     void shouldNotCreditWithCardNumber15Digits() {
@@ -56,7 +56,7 @@ public class CreditTest {
         mainPage.validInfo(DataHelper.getValidAuthInfo());
         mainPage.cardNumberField.sendKeys(Keys.BACK_SPACE);
         mainPage.buttonContinue.click();
-        mainPage.wrongFormat();
+        mainPage.wrongData("Неверный формат");
     }
     @Test   // 6
     void shouldNotCreditWithMonth1Digit() {
@@ -65,7 +65,7 @@ public class CreditTest {
         mainPage.validInfo(DataHelper.getValidAuthInfo());
         mainPage.monthField.sendKeys(Keys.ARROW_LEFT,Keys.BACK_SPACE);
         mainPage.buttonContinue.click();
-        mainPage.wrongFormat();
+        mainPage.wrongData("Неверный формат");
     }
     @Test   // 7
     void shouldNotCreditWithMonthMoreThan12() {
@@ -75,7 +75,7 @@ public class CreditTest {
         mainPage.monthField.sendKeys(Keys.BACK_SPACE,Keys.BACK_SPACE);
         mainPage.monthField.setValue("13");
         mainPage.buttonContinue.click();
-        mainPage.wrongCardExpiration();
+        mainPage.wrongData("Неверно указан срок действия карты");
     }
     @Test   // 8
     void shouldNotCreditWithMonthEmpty() {
@@ -84,7 +84,7 @@ public class CreditTest {
         mainPage.validInfo(DataHelper.getValidAuthInfo());
         mainPage.monthField.sendKeys(Keys.BACK_SPACE,Keys.BACK_SPACE);
         mainPage.buttonContinue.click();
-        mainPage.wrongFormat();
+        mainPage.wrongData("Неверный формат");
     }
     @Test   // 9
     void shouldNotCreditWithMonthWithSpace() {
@@ -94,7 +94,7 @@ public class CreditTest {
         mainPage.monthField.sendKeys(Keys.BACK_SPACE,Keys.BACK_SPACE);
         mainPage.monthField.setValue(" ");
         mainPage.buttonContinue.click();
-        mainPage.wrongFormat();
+        mainPage.wrongData("Неверный формат");
     }
     @Test   // 10
     void shouldNotCreditWithMonthWithTwoNulls() {
@@ -104,7 +104,7 @@ public class CreditTest {
         mainPage.monthField.sendKeys(Keys.BACK_SPACE,Keys.BACK_SPACE);
         mainPage.monthField.setValue("00");
         mainPage.buttonContinue.click();
-        mainPage.wrongFormat();
+        mainPage.wrongData("Неверный формат");
     }
     @Test   // 11
     void shouldNotCreditWithYearMoreThan5() {
@@ -112,9 +112,9 @@ public class CreditTest {
         mainPage.buttonCredit.click();
         mainPage.validInfo(DataHelper.getValidAuthInfo());
         mainPage.yearField.sendKeys(Keys.BACK_SPACE,Keys.BACK_SPACE);
-        mainPage.yearField.setValue(DataHelper.generateInvalidYear("+"));
+        mainPage.yearField.setValue(DataHelper.generateInvalidYear(7));
         mainPage.buttonContinue.click();
-        mainPage.wrongCardExpiration();
+        mainPage.wrongData("Неверно указан срок действия карты");
     }
     @Test   // 12
     void shouldNotCreditWithYearLessThanNow() {
@@ -122,9 +122,9 @@ public class CreditTest {
         mainPage.buttonCredit.click();
         mainPage.validInfo(DataHelper.getValidAuthInfo());
         mainPage.yearField.sendKeys(Keys.BACK_SPACE,Keys.BACK_SPACE);
-        mainPage.yearField.setValue(DataHelper.generateInvalidYear("-"));
+        mainPage.yearField.setValue(DataHelper.generateInvalidYear(6));
         mainPage.buttonContinue.click();
-        mainPage.wrongCardExpiration();
+        mainPage.wrongData("Неверно указан срок действия карты");
     }
     @Test   // 13
     void shouldNotCreditWithYearWrongData() {
@@ -134,7 +134,7 @@ public class CreditTest {
         mainPage.yearField.sendKeys(Keys.BACK_SPACE,Keys.BACK_SPACE);
         mainPage.yearField.setValue(DataHelper.generateRandom3Letters());
         mainPage.buttonContinue.click();
-        mainPage.wrongFormat();
+        mainPage.wrongData("Неверный формат");
     }
     @Test   // 14
     void shouldNotCreditWithYearWithTwoNulls() {
@@ -144,7 +144,7 @@ public class CreditTest {
         mainPage.yearField.sendKeys(Keys.BACK_SPACE,Keys.BACK_SPACE);
         mainPage.yearField.setValue("00");
         mainPage.buttonContinue.click();
-        mainPage.cardExpired();
+        mainPage.wrongData("Истёк срок действия карты");
     }
     @Test   // 15
     void shouldNotCreditWithYearWithSpace() {
@@ -154,7 +154,7 @@ public class CreditTest {
         mainPage.yearField.sendKeys(Keys.BACK_SPACE,Keys.BACK_SPACE);
         mainPage.yearField.setValue(" ");
         mainPage.buttonContinue.click();
-        mainPage.wrongFormat();
+        mainPage.wrongData("Неверный формат");
     }
     @Test   // 16
     void shouldNotCreditWithYearEmpty() {
@@ -163,7 +163,7 @@ public class CreditTest {
         mainPage.validInfo(DataHelper.getValidAuthInfo());
         mainPage.yearField.sendKeys(Keys.BACK_SPACE,Keys.BACK_SPACE);
         mainPage.buttonContinue.click();
-        mainPage.wrongFormat();
+        mainPage.wrongData("Неверный формат");
     }
     @Test   // 17
     void shouldNotCreditWithNameCyrillic() {
@@ -174,7 +174,7 @@ public class CreditTest {
         mainPage.nameField.sendKeys(Keys.BACK_SPACE);
         mainPage.nameField.setValue("Привет Олег");
         mainPage.buttonContinue.click();
-        mainPage.wrongFormat();
+        mainPage.wrongData("Неверный формат");
     }
     @Test   // 18
     void shouldNotCreditWithNameInvalid() {
@@ -185,7 +185,7 @@ public class CreditTest {
         mainPage.nameField.sendKeys(Keys.BACK_SPACE);
         mainPage.nameField.setValue(DataHelper.generateInvalidNameOfBothify());
         mainPage.buttonContinue.click();
-        mainPage.wrongFormat();
+        mainPage.wrongData("Неверный формат");
     }
     @Test   // 19
     void shouldNotCreditWithNameHalfCyrillic() {
@@ -196,7 +196,7 @@ public class CreditTest {
         mainPage.nameField.sendKeys(Keys.BACK_SPACE);
         mainPage.nameField.setValue(DataHelper.generateInvalidNameWithRussian());
         mainPage.buttonContinue.click();
-        mainPage.wrongFormat();
+        mainPage.wrongData("Неверный формат");
     }
     @Test   // 20
     void shouldNotCreditWithNameWithSymbols() {
@@ -207,7 +207,7 @@ public class CreditTest {
         mainPage.nameField.sendKeys(Keys.BACK_SPACE);
         mainPage.nameField.setValue(DataHelper.generateInvalidNameWithSomeSymbols());
         mainPage.buttonContinue.click();
-        mainPage.wrongFormat();
+        mainPage.wrongData("Неверный формат");
     }
     @Test   // 21
     void shouldNotCreditWithCVCWrongSymbol() {
@@ -217,7 +217,7 @@ public class CreditTest {
         mainPage.codeField.sendKeys(Keys.BACK_SPACE, Keys.BACK_SPACE, Keys.BACK_SPACE);
         mainPage.codeField.setValue(DataHelper.generateWrongStringForCVC());
         mainPage.buttonContinue.click();
-        mainPage.wrongFormat();
+        mainPage.wrongData("Неверный формат");
     }
     @Test   // 22
     void shouldNotCreditWithCVCWithSpace() {
@@ -227,7 +227,7 @@ public class CreditTest {
         mainPage.codeField.sendKeys(Keys.BACK_SPACE, Keys.BACK_SPACE, Keys.BACK_SPACE);
         mainPage.codeField.setValue(" ");
         mainPage.buttonContinue.click();
-        mainPage.wrongFormat();
+        mainPage.wrongData("Неверный формат");
     }
     @Test   // 23
     void shouldNotCreditWithCVCEmpty() {
@@ -237,6 +237,6 @@ public class CreditTest {
         mainPage.codeField.sendKeys(Keys.BACK_SPACE, Keys.BACK_SPACE, Keys.BACK_SPACE);
         mainPage.codeField.setValue("");
         mainPage.buttonContinue.click();
-        mainPage.wrongFormat();
+        mainPage.wrongData("Неверный формат");
     }
 }

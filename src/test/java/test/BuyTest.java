@@ -49,7 +49,7 @@ public class BuyTest {
         mainPage.cardNumberField.sendKeys(Keys.BACK_SPACE);
         mainPage.cardNumberField.setValue(DataHelper.generateRandom3Letters());
         mainPage.buttonContinue.click();
-        mainPage.wrongFormat();
+        mainPage.wrongData("Неверный формат");
     }
     @Test   // 2
     void shouldNotBuyWithCardNumberEmpty() {
@@ -59,7 +59,7 @@ public class BuyTest {
         mainPage.cardNumberField.sendKeys(Keys.chord(Keys.CONTROL, "a"));
         mainPage.cardNumberField.sendKeys(Keys.BACK_SPACE);
         mainPage.buttonContinue.click();
-        mainPage.wrongFormat();
+        mainPage.wrongData("Неверный формат");
     }
     @Test   // 3
     void shouldNotBuyWithCardNumber1Space() {
@@ -70,7 +70,7 @@ public class BuyTest {
         mainPage.cardNumberField.sendKeys(Keys.BACK_SPACE);
         mainPage.cardNumberField.setValue(" ");
         mainPage.buttonContinue.click();
-        mainPage.wrongFormat();
+        mainPage.wrongData("Неверный формат");
     }
     @Test   // 4
     void shouldNotBuyWithCardNumber16Nulls() {
@@ -81,7 +81,7 @@ public class BuyTest {
         mainPage.cardNumberField.sendKeys(Keys.BACK_SPACE);
         mainPage.cardNumberField.setValue("0000000000000000");
         mainPage.buttonContinue.click();
-        mainPage.wrongFormat();
+        mainPage.wrongData("Неверный формат");
     }
     @Test   // 5
     void shouldNotBuyWithCardNumber15Digits() {
@@ -90,7 +90,7 @@ public class BuyTest {
         mainPage.validInfo(DataHelper.getValidAuthInfo());
         mainPage.cardNumberField.sendKeys(Keys.BACK_SPACE);
         mainPage.buttonContinue.click();
-        mainPage.wrongFormat();
+        mainPage.wrongData("Неверный формат");
     }
     @Test   // 6
     void shouldNotBuyWithMonth1Digit() {
@@ -99,7 +99,7 @@ public class BuyTest {
         mainPage.validInfo(DataHelper.getValidAuthInfo());
         mainPage.monthField.sendKeys(Keys.ARROW_LEFT,Keys.BACK_SPACE);
         mainPage.buttonContinue.click();
-        mainPage.wrongFormat();
+        mainPage.wrongData("Неверный формат");
     }
     @Test   // 7
     void shouldNotBuyWithMonthMoreThan12() {
@@ -109,7 +109,7 @@ public class BuyTest {
         mainPage.monthField.sendKeys(Keys.BACK_SPACE,Keys.BACK_SPACE);
         mainPage.monthField.setValue("13");
         mainPage.buttonContinue.click();
-        mainPage.wrongCardExpiration();
+        mainPage.wrongData("Неверно указан срок действия карты");
     }
     @Test   // 8
     void shouldNotBuyWithMonthEmpty() {
@@ -118,7 +118,7 @@ public class BuyTest {
         mainPage.validInfo(DataHelper.getValidAuthInfo());
         mainPage.monthField.sendKeys(Keys.BACK_SPACE,Keys.BACK_SPACE);
         mainPage.buttonContinue.click();
-        mainPage.wrongFormat();
+        mainPage.wrongData("Неверный формат");
     }
     @Test   // 9
     void shouldNotBuyWithMonthWithSpace() {
@@ -128,7 +128,7 @@ public class BuyTest {
         mainPage.monthField.sendKeys(Keys.BACK_SPACE,Keys.BACK_SPACE);
         mainPage.monthField.setValue(" ");
         mainPage.buttonContinue.click();
-        mainPage.wrongFormat();
+        mainPage.wrongData("Неверный формат");
     }
     @Test   // 10
     void shouldNotBuyWithMonthWithTwoNulls() {
@@ -138,7 +138,7 @@ public class BuyTest {
         mainPage.monthField.sendKeys(Keys.BACK_SPACE,Keys.BACK_SPACE);
         mainPage.monthField.setValue("00");
         mainPage.buttonContinue.click();
-        mainPage.wrongFormat();
+        mainPage.wrongData("Неверный формат");
     }
     @Test   // 11
     void shouldNotBuyWithYearMoreThan5() {
@@ -146,9 +146,9 @@ public class BuyTest {
         mainPage.buttonBuy.click();
         mainPage.validInfo(DataHelper.getValidAuthInfo());
         mainPage.yearField.sendKeys(Keys.BACK_SPACE,Keys.BACK_SPACE);
-        mainPage.yearField.setValue(DataHelper.generateInvalidYear("+"));
+        mainPage.yearField.setValue(DataHelper.generateInvalidYear(6));
         mainPage.buttonContinue.click();
-        mainPage.wrongCardExpiration();
+        mainPage.wrongData("Неверно указан срок действия карты");
     }
     @Test   // 12
     void shouldNotBuyWithYearLessThanNow() {
@@ -156,9 +156,9 @@ public class BuyTest {
         mainPage.buttonBuy.click();
         mainPage.validInfo(DataHelper.getValidAuthInfo());
         mainPage.yearField.sendKeys(Keys.BACK_SPACE,Keys.BACK_SPACE);
-        mainPage.yearField.setValue(DataHelper.generateInvalidYear("-"));
+        mainPage.yearField.setValue(DataHelper.generateInvalidYear(9));
         mainPage.buttonContinue.click();
-        mainPage.wrongCardExpiration();
+        mainPage.wrongData("Неверно указан срок действия карты");
     }
     @Test   // 13
     void shouldNotBuyWithYearWrongData() {
@@ -168,7 +168,7 @@ public class BuyTest {
         mainPage.yearField.sendKeys(Keys.BACK_SPACE,Keys.BACK_SPACE);
         mainPage.yearField.setValue(DataHelper.generateRandom3Letters());
         mainPage.buttonContinue.click();
-        mainPage.wrongFormat();
+        mainPage.wrongData("Неверный формат");
     }
     @Test   // 14
     void shouldNotBuyWithYearWithTwoNulls() {
@@ -178,7 +178,7 @@ public class BuyTest {
         mainPage.yearField.sendKeys(Keys.BACK_SPACE,Keys.BACK_SPACE);
         mainPage.yearField.setValue("00");
         mainPage.buttonContinue.click();
-        mainPage.cardExpired();
+        mainPage.wrongData("Истёк срок действия карты");
     }
     @Test   // 15
     void shouldNotBuyWithYearWithSpace() {
@@ -188,7 +188,7 @@ public class BuyTest {
         mainPage.yearField.sendKeys(Keys.BACK_SPACE,Keys.BACK_SPACE);
         mainPage.yearField.setValue(" ");
         mainPage.buttonContinue.click();
-        mainPage.wrongFormat();
+        mainPage.wrongData("Неверный формат");
     }
     @Test   // 16
     void shouldNotBuyWithYearEmpty() {
@@ -197,7 +197,7 @@ public class BuyTest {
         mainPage.validInfo(DataHelper.getValidAuthInfo());
         mainPage.yearField.sendKeys(Keys.BACK_SPACE,Keys.BACK_SPACE);
         mainPage.buttonContinue.click();
-        mainPage.wrongFormat();
+        mainPage.wrongData("Неверный формат");
     }
     @Test   // 17
     void shouldNotBuyWithNameCyrillic() {
@@ -208,7 +208,7 @@ public class BuyTest {
         mainPage.nameField.sendKeys(Keys.BACK_SPACE);
         mainPage.nameField.setValue("Привет Олег");
         mainPage.buttonContinue.click();
-        mainPage.wrongFormat();
+        mainPage.wrongData("Неверный формат");
     }
     @Test   // 18
     void shouldNotBuyWithNameInvalid() {
@@ -219,7 +219,7 @@ public class BuyTest {
         mainPage.nameField.sendKeys(Keys.BACK_SPACE);
         mainPage.nameField.setValue(DataHelper.generateInvalidNameOfBothify());
         mainPage.buttonContinue.click();
-        mainPage.wrongFormat();
+        mainPage.wrongData("Неверный формат");
     }
     @Test   // 19
     void shouldNotBuyWithNameHalfCyrillic() {
@@ -230,7 +230,7 @@ public class BuyTest {
         mainPage.nameField.sendKeys(Keys.BACK_SPACE);
         mainPage.nameField.setValue(DataHelper.generateInvalidNameWithRussian());
         mainPage.buttonContinue.click();
-        mainPage.wrongFormat();
+        mainPage.wrongData("Неверный формат");
     }
     @Test   // 20
     void shouldNotBuyWithNameWithSymbols() {
@@ -241,7 +241,7 @@ public class BuyTest {
         mainPage.nameField.sendKeys(Keys.BACK_SPACE);
         mainPage.nameField.setValue(DataHelper.generateInvalidNameWithSomeSymbols());
         mainPage.buttonContinue.click();
-        mainPage.wrongFormat();
+        mainPage.wrongData("Неверный формат");
     }
     @Test   // 21
     void shouldNotBuyWithCVCWrongSymbol() {
@@ -251,7 +251,7 @@ public class BuyTest {
         mainPage.codeField.sendKeys(Keys.BACK_SPACE, Keys.BACK_SPACE, Keys.BACK_SPACE);
         mainPage.codeField.setValue(DataHelper.generateWrongStringForCVC());
         mainPage.buttonContinue.click();
-        mainPage.wrongFormat();
+        mainPage.wrongData("Неверный формат");
     }
     @Test   // 22
     void shouldNotBuyWithCVCWithSpace() {
@@ -261,7 +261,7 @@ public class BuyTest {
         mainPage.codeField.sendKeys(Keys.BACK_SPACE, Keys.BACK_SPACE, Keys.BACK_SPACE);
         mainPage.codeField.setValue(" ");
         mainPage.buttonContinue.click();
-        mainPage.wrongFormat();
+        mainPage.wrongData("Неверный формат");
     }
     @Test   // 23
     void shouldNotBuyWithCVCEmpty() {
@@ -271,6 +271,6 @@ public class BuyTest {
         mainPage.codeField.sendKeys(Keys.BACK_SPACE, Keys.BACK_SPACE, Keys.BACK_SPACE);
         mainPage.codeField.setValue("");
         mainPage.buttonContinue.click();
-        mainPage.wrongFormat();
+        mainPage.wrongData("Неверный формат");
     }
 }

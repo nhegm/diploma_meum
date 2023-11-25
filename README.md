@@ -29,9 +29,14 @@ Google Chrome последней версии
 1. Запустить Docker (под Windows).
 2. В терминале java запустить контейнеры командой:
     docker-compose up --build
-3. В терминале java запустить приложение с сайтом:
-    java -jar ./artifacts/aqa-shop.jar
-4. Запустить тесты в классах CommonTest, BuyTest, CreditTest. 
+3. В терминале java запустить приложение с БД mysql:
+    java "-Dspring.datasource.url=jdbc:mysql://localhost:3306/app" -jar artifacts/aqa-shop.jar
+4. Запустить тесты командой:
+    ./gradlew clean test "-Ddb.url=jdbc:mysql://localhost:3306/app"     
+5. В терминале java запустить приложение с БД postgresql:
+    java "-Dspring.datasource.url=jdbc:postgresql://localhost:5432/app" -jar artifacts/aqa-shop.jar
+6. Запустить тесты командой:
+    ./gradlew clean test "-Ddb.url=jdbc:postgresql://localhost:5432/app"
 ```
 
 ## Лицензия
