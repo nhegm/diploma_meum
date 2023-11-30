@@ -1,46 +1,42 @@
 package test;
 
 import data.DataHelper;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import page.MainPage;
 
 import static com.codeborne.selenide.Selenide.*;
 public class CommonTest {
-    ///////////////////////// 1 block ////////////////////////////////////////
+    @BeforeEach
+    void MainPageOpen() {
+        open("http://localhost:8080", MainPage.class);
+    }
     @Test
     // 1
     void shouldBuyWithApprovedCardAndValidData() {
-        MainPage mainPage = open("http://localhost:8080", MainPage.class);
-        mainPage.buttonBuy.click();
-        mainPage.validInfo(DataHelper.getApprovedAuthInfo());
-        mainPage.buttonContinue.click();
-        mainPage.success();
+        MainPage.buyFill(DataHelper.getApprovedAuthInfo());
+        MainPage.continueClick();
+        MainPage.success();
     }
     @Test
         // 2
     void shouldCreditWithApprovedCardAndValidData() {
-        var mainPage = open("http://localhost:8080", MainPage.class);
-        mainPage.buttonCredit.click();
-        mainPage.validInfo(DataHelper.getApprovedAuthInfo());
-        mainPage.buttonContinue.click();
-        mainPage.success();
+        MainPage.creditFill(DataHelper.getApprovedAuthInfo());
+        MainPage.continueClick();
+        MainPage.success();
     }
     @Test
         // 3
     void shouldNotBuyWithDeclinedCardAndValidData() {
-        var mainPage = open("http://localhost:8080", MainPage.class);
-        mainPage.buttonBuy.click();
-        mainPage.validInfo(DataHelper.getDeclinedAuthInfo());
-        mainPage.buttonContinue.click();
-        mainPage.error();
+        MainPage.buyFill(DataHelper.getDeclinedAuthInfo());
+        MainPage.continueClick();
+        MainPage.error();
     }
     @Test
         // 4
     void shouldNotCreditWithDeclinedCardAndValidData() {
-        var mainPage = open("http://localhost:8080", MainPage.class);
-        mainPage.buttonBuy.click();
-        mainPage.validInfo(DataHelper.getDeclinedAuthInfo());
-        mainPage.buttonContinue.click();
-        mainPage.error();
+        MainPage.creditFill(DataHelper.getDeclinedAuthInfo());
+        MainPage.continueClick();
+        MainPage.error();
     }
 }

@@ -6,7 +6,6 @@ import lombok.Value;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
-import java.util.Random;
 
 public class DataHelper {
     private DataHelper() {
@@ -21,6 +20,9 @@ public class DataHelper {
     public static String getDeclinedCardNumber() {
         return new String("4444 4444 4444 4442");
     }
+    public static String getNullCardNumber() {
+        return new String("0000 0000 0000 0000");
+    }
     public static String generateValidMonth(){
         return LocalDate.now().format(DateTimeFormatter.ofPattern("MM"));
     }
@@ -29,6 +31,12 @@ public class DataHelper {
     }
     public static String generateRandom3Letters() {
         return faker.letterify("???");
+    }
+    public static String generateRandomLetter() {
+        return faker.letterify("?");
+    }
+    public static String generateRandomDigit() {
+        return faker.numerify("#");
     }
     public static String generateInvalidYear(Integer plusYear) {
         return LocalDate.now().plusYears(plusYear).format(DateTimeFormatter.ofPattern("YY"));
