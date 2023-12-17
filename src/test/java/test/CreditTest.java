@@ -6,125 +6,219 @@ import org.junit.jupiter.api.Test;
 import page.MainPage;
 
 import static com.codeborne.selenide.Selenide.*;
+
 public class CreditTest {
+    MainPage mainPage;
+
     @BeforeEach
-    void MainPageOpen() {
-        open("http://localhost:8080", MainPage.class);
-        MainPage.creditFill(DataHelper.getValidAuthInfo());
+    void mainPageOpen() {
+        mainPage = open("http://localhost:8080", MainPage.class);
     }
-    @Test   // 1
+
+    @Test
+        // 1
     void shouldNotCreditWithCardNumber15DigitsAndLetter() {
-        MainPage.cardNumber1SignErase(DataHelper.generateRandomLetter());
-        MainPage.wrongData("Неверный формат");
+        mainPage.creditFillWithoutNumber(DataHelper.getValidAuthInfo());
+        mainPage.cardNumber15DigitsPlusSymbol();
+        mainPage.continueClick();
+        mainPage.wrongData("Неверный формат");
     }
-    @Test   // 2
+
+    @Test
+        // 2
     void shouldNotCreditWithCardNumberEmpty() {
-        MainPage.cardNumberCleanAndFill("");
-        MainPage.wrongData("Неверный формат");
+        mainPage.creditFillWithoutNumber(DataHelper.getValidAuthInfo());
+        mainPage.cardNumberEmpty();
+        mainPage.continueClick();
+        mainPage.wrongData("Неверный формат");
     }
-    @Test   // 3
+
+    @Test
+        // 3
     void shouldNotCreditWithCardNumber1Space() {
-        MainPage.cardNumberCleanAndFill(" ");
-        MainPage.wrongData("Неверный формат");
+        mainPage.creditFillWithoutNumber(DataHelper.getValidAuthInfo());
+        mainPage.cardNumber1Space();
+        mainPage.continueClick();
+        mainPage.wrongData("Неверный формат");
     }
-    @Test   // 4
+
+    @Test
+        // 4
     void shouldNotCreditWithCardNumber16Nulls() {
-        MainPage.cardNumberCleanAndFill(DataHelper.getNullCardNumber());
-        MainPage.wrongData("Неверный формат");
+        mainPage.creditFillWithoutNumber(DataHelper.getValidAuthInfo());
+        mainPage.cardNumber16Nulls();
+        mainPage.continueClick();
+        mainPage.wrongData("Неверный формат");
     }
-    @Test   // 5
+
+    @Test
+        // 5
     void shouldNotCreditWithCardNumber15Digits() {
-        MainPage.cardNumber1SignErase("");
-        MainPage.wrongData("Неверный формат");
+        mainPage.creditFillWithoutNumber(DataHelper.getValidAuthInfo());
+        mainPage.cardNumberLessThan15Digits();
+        mainPage.continueClick();
+        mainPage.wrongData("Неверный формат");
     }
-    @Test   // 6
+
+    @Test
+        // 6
     void shouldNotCreditWithMonth1Digit() {
-        MainPage.monthCleanAndFill(DataHelper.generateRandomDigit());
-        MainPage.wrongData("Неверный формат");
+        mainPage.creditFillWithoutMonth(DataHelper.getValidAuthInfo());
+        mainPage.month1Digit();
+        mainPage.continueClick();
+        mainPage.wrongData("Неверный формат");
     }
-    @Test   // 7
+
+    @Test
+        // 7
     void shouldNotCreditWithMonthMoreThan12() {
-        MainPage.monthCleanAndFill("13");
-        MainPage.wrongData("Неверно указан срок действия карты");
+        mainPage.creditFillWithoutMonth(DataHelper.getValidAuthInfo());
+        mainPage.monthMoreThan12();
+        mainPage.continueClick();
+        mainPage.wrongData("Неверно указан срок действия карты");
     }
-    @Test   // 8
+
+    @Test
+        // 8
     void shouldNotCreditWithMonthEmpty() {
-        MainPage.monthCleanAndFill("");
-        MainPage.wrongData("Неверный формат");
+        mainPage.creditFillWithoutMonth(DataHelper.getValidAuthInfo());
+        mainPage.monthEmpty();
+        mainPage.continueClick();
+        mainPage.wrongData("Неверный формат");
     }
-    @Test   // 9
+
+    @Test
+        // 9
     void shouldNotCreditWithMonthWithSpace() {
-        MainPage.monthCleanAndFill(" ");
-        MainPage.wrongData("Неверный формат");
+        mainPage.creditFillWithoutMonth(DataHelper.getValidAuthInfo());
+        mainPage.month1Space();
+        mainPage.continueClick();
+        mainPage.wrongData("Неверный формат");
     }
-    @Test   // 10
+
+    @Test
+        // 10
     void shouldNotCreditWithMonthWithTwoNulls() {
-        MainPage.monthCleanAndFill("00");
-        MainPage.wrongData("Неверный формат");
+        mainPage.creditFillWithoutMonth(DataHelper.getValidAuthInfo());
+        mainPage.month2Nulls();
+        mainPage.continueClick();
+        mainPage.wrongData("Неверный формат");
     }
-    @Test   // 11
+
+    @Test
+        // 11
     void shouldNotCreditWithYearMoreThan5() {
-        MainPage.yearCleanAndFill(DataHelper.generateInvalidYear(6));
-        MainPage.wrongData("Неверно указан срок действия карты");
+        mainPage.creditFillWithoutYear(DataHelper.getValidAuthInfo());
+        mainPage.yearMoreThan5();
+        mainPage.continueClick();
+        mainPage.wrongData("Неверно указан срок действия карты");
     }
-    @Test   // 12
+
+    @Test
+        // 12
     void shouldNotCreditWithYearLessThanNow() {
-        MainPage.yearCleanAndFill(DataHelper.generateInvalidYear(-1));
-        MainPage.wrongData("Неверно указан срок действия карты");
+        mainPage.creditFillWithoutYear(DataHelper.getValidAuthInfo());
+        mainPage.yearLessThanMin();
+        mainPage.continueClick();
+        mainPage.wrongData("Истёк срок действия карты");
     }
-    @Test   // 13
+
+    @Test
+        // 13
     void shouldNotCreditWithYearWrongData() {
-        MainPage.yearCleanAndFill(DataHelper.generateRandom3Letters());
-        MainPage.wrongData("Неверный формат");
+        mainPage.creditFillWithoutYear(DataHelper.getValidAuthInfo());
+        mainPage.yearWithWrongSymbol();
+        mainPage.continueClick();
+        mainPage.wrongData("Неверный формат");
     }
-    @Test   // 14
+
+    @Test
+        // 14
     void shouldNotCreditWithYearWithTwoNulls() {
-        MainPage.yearCleanAndFill("00");
-        MainPage.wrongData("Истёк срок действия карты");
+        mainPage.creditFillWithoutYear(DataHelper.getValidAuthInfo());
+        mainPage.year2Nulls();
+        mainPage.continueClick();
+        mainPage.wrongData("Истёк срок действия карты");
     }
-    @Test   // 15
+
+    @Test
+        // 15
     void shouldNotCreditWithYearWithSpace() {
-        MainPage.yearCleanAndFill(" ");
-        MainPage.wrongData("Неверный формат");
+        mainPage.creditFillWithoutYear(DataHelper.getValidAuthInfo());
+        mainPage.year1Space();
+        mainPage.continueClick();
+        mainPage.wrongData("Неверный формат");
     }
-    @Test   // 16
+
+    @Test
+        // 16
     void shouldNotCreditWithYearEmpty() {
-        MainPage.yearCleanAndFill("");
-        MainPage.wrongData("Неверный формат");
+        mainPage.creditFillWithoutYear(DataHelper.getValidAuthInfo());
+        mainPage.yearEmpty();
+        mainPage.continueClick();
+        mainPage.wrongData("Неверный формат");
     }
-    @Test   // 17
+
+    @Test
+        // 17
     void shouldNotCreditWithNameCyrillic() {
-        MainPage.nameCleanAndFill("Привет Олег");
-        MainPage.wrongData("Неверный формат");
+        mainPage.creditFillWithoutName(DataHelper.getValidAuthInfo());
+        mainPage.nameRussian();
+        mainPage.continueClick();
+        mainPage.wrongData("Неверный формат");
     }
-    @Test   // 18
+
+    @Test
+        // 18
     void shouldNotCreditWithNameInvalid() {
-        MainPage.nameCleanAndFill(DataHelper.generateInvalidNameOfBothify());
-        MainPage.wrongData("Неверный формат");
+        mainPage.creditFillWithoutName(DataHelper.getValidAuthInfo());
+        mainPage.nameInvalid();
+        mainPage.continueClick();
+        mainPage.wrongData("Неверный формат");
     }
-    @Test   // 19
-    void shouldNotCreditWithNameHalfCyrillic() {
-        MainPage.nameCleanAndFill(DataHelper.generateInvalidNameWithRussian());
-        MainPage.wrongData("Неверный формат");
+
+    @Test
+        // 19
+    void shouldNotCreditWithNameEnglishAndCyrillic() {
+        mainPage.creditFillWithoutName(DataHelper.getValidAuthInfo());
+        mainPage.nameEnglishAndRussian();
+        mainPage.continueClick();
+        mainPage.wrongData("Неверный формат");
     }
-    @Test   // 20
+
+    @Test
+        // 20
     void shouldNotCreditWithNameWithSymbols() {
-        MainPage.nameCleanAndFill(DataHelper.generateInvalidNameWithSomeSymbols());
-        MainPage.wrongData("Неверный формат");
+        mainPage.creditFillWithoutName(DataHelper.getValidAuthInfo());
+        mainPage.nameInvalidWithSomeSymbols();
+        mainPage.continueClick();
+        mainPage.wrongData("Неверный формат");
     }
-    @Test   // 21
+
+    @Test
+        // 21
     void shouldNotCreditWithCVCWrongSymbol() {
-        MainPage.codeCleanAndFill(DataHelper.generateWrongStringForCVC());
-        MainPage.wrongData("Неверный формат");
+        mainPage.creditFillWithoutCode(DataHelper.getValidAuthInfo());
+        mainPage.code2NumbersWithSymbol();
+        mainPage.continueClick();
+        mainPage.wrongData("Неверный формат");
     }
-    @Test   // 22
+
+    @Test
+        // 22
     void shouldNotCreditWithCVCWithSpace() {
-        MainPage.codeCleanAndFill(" ");
-        MainPage.wrongData("Неверный формат");
+        mainPage.creditFillWithoutCode(DataHelper.getValidAuthInfo());
+        mainPage.code1Space();
+        mainPage.continueClick();
+        mainPage.wrongData("Неверный формат");
     }
-    @Test   // 23
+
+    @Test
+        // 23
     void shouldNotCreditWithCVCEmpty() {
-        MainPage.codeCleanAndFill("");
-        MainPage.wrongData("Неверный формат");
+        mainPage.creditFillWithoutCode(DataHelper.getValidAuthInfo());
+        mainPage.codeEmpty();
+        mainPage.continueClick();
+        mainPage.wrongData("Неверный формат");
     }
 }
