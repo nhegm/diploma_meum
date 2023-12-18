@@ -2,10 +2,7 @@ package test;
 
 import data.DataHelper;
 import data.SQLHelper;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Order;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import page.MainPage;
 
 import static com.codeborne.selenide.Selenide.*;
@@ -25,7 +22,7 @@ public class CommonTest {
         mainPage.buyFill(DataHelper.getApprovedAuthInfo());
         mainPage.continueClick();
         mainPage.success();
-        SQLHelper.getOperationStatus().equals("DECLINED");
+        Assertions.assertEquals(SQLHelper.getBuyStatus(),"APPROVED");
     }
 
     @Test
@@ -35,6 +32,7 @@ public class CommonTest {
         mainPage.creditFill(DataHelper.getApprovedAuthInfo());
         mainPage.continueClick();
         mainPage.success();
+        Assertions.assertEquals(SQLHelper.getCreditStatus(),"APPROVED");
     }
 
     @Test
@@ -44,6 +42,7 @@ public class CommonTest {
         mainPage.buyFill(DataHelper.getDeclinedAuthInfo());
         mainPage.continueClick();
         mainPage.error();
+        Assertions.assertEquals(SQLHelper.getBuyStatus(),"DECLINED");
     }
 
     @Test
@@ -53,5 +52,6 @@ public class CommonTest {
         mainPage.creditFill(DataHelper.getDeclinedAuthInfo());
         mainPage.continueClick();
         mainPage.error();
+        Assertions.assertEquals(SQLHelper.getCreditStatus(),"DECLINED");
     }
 }
