@@ -3,6 +3,7 @@ Thumbs.db*
 HELP.md
 .gradle
 build/
+data/
 
 ### STS ###
 .apt_generated
@@ -31,7 +32,6 @@ out/
 .vscode/
 
 ### Package Files ###
-*.jar
 *.war
 *.nar
 *.ear

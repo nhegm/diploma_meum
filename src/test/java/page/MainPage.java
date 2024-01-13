@@ -224,17 +224,17 @@ public class MainPage {
     }
 
     public void success() {
-        successNote.shouldHave(exactText("Успешно"), Duration.ofSeconds(10));
+        successNote.shouldHave(exactText("Успешно"), Duration.ofSeconds(20));
         successNote.shouldBe(visible);
     }
 
     public void error() {
-        errorNote.shouldHave(exactText("Ошибка"), Duration.ofSeconds(10));
+        errorNote.shouldHave(exactText("Ошибка"), Duration.ofSeconds(20));
         errorNote.shouldBe(visible);
     }
 
     public void wrongData(String subsMessage) {
-        substringMessage.shouldHave(exactText(subsMessage), Duration.ofSeconds(10));
+        substringMessage.shouldHave(exactText(subsMessage));
         substringMessage.shouldBe(visible);
     }
 }

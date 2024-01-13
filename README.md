@@ -38,7 +38,3 @@ Google Chrome последней версии
 6. Запустить тесты командой:
     ./gradlew clean test "-Ddb.url=jdbc:postgresql://localhost:5432/app"
 ```
-
-## Лицензия
-
-Опишите
