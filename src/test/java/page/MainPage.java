@@ -207,10 +207,18 @@ public class MainPage {
         nameField.setValue(DataHelper.generateInvalidNameRussian());
     }
 
-    public void nameInvalid() { nameField.setValue(DataHelper.generateInvalidNameWithSomeSymbols()); }
-    public void name1Space() { nameField.setValue(DataHelper.generateName1Space()); }
+    public void nameInvalid() {
+        nameField.setValue(DataHelper.generateInvalidNameWithSomeSymbols());
+    }
 
-    public void nameEmpty() { nameField.setValue(DataHelper.generateNameEmpty()); }
+    public void name1Space() {
+        nameField.setValue(DataHelper.generateName1Space());
+    }
+
+    public void nameEmpty() {
+        nameField.setValue(DataHelper.generateNameEmpty());
+    }
+
     public void nameEnglishAndRussian() {
         nameField.setValue(DataHelper.generateInvalidNameEnglishAndRussian());
     }

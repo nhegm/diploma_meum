@@ -16,20 +16,24 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class BuyTest {
     MainPage mainPage;
+
     @BeforeAll
     static void setUpAll() {
         SelenideLogger.addListener("allure", new AllureSelenide());
     }
+
     @AfterAll
     static void tearDownAll() {
         SelenideLogger.removeListener("allure");
     }
+
     @BeforeEach
     void mainPageOpen() {
         mainPage = open("http://localhost:8080", MainPage.class);
     }
 
-    @Test   // 1
+    @Test
+        // 1
     void shouldNotBuyWithCardNumber15DigitsAndLetter() {
         mainPage.buyFillWithoutNumber(DataHelper.getValidAuthInfo());
         mainPage.cardNumber15DigitsPlusSymbol();
@@ -37,7 +41,8 @@ public class BuyTest {
         mainPage.wrongData("Неверный формат");
     }
 
-    @Test   // 2
+    @Test
+        // 2
     void shouldNotBuyWithCardNumberEmpty() {
         mainPage.buyFillWithoutNumber(DataHelper.getValidAuthInfo());
         mainPage.cardNumberEmpty();
@@ -45,7 +50,8 @@ public class BuyTest {
         mainPage.wrongData("Неверный формат");
     }
 
-    @Test   // 3
+    @Test
+        // 3
     void shouldNotBuyWithCardNumber1Space() {
         mainPage.buyFillWithoutNumber(DataHelper.getValidAuthInfo());
         mainPage.cardNumber1Space();
@@ -53,7 +59,8 @@ public class BuyTest {
         mainPage.wrongData("Неверный формат");
     }
 
-    @Test   // 4
+    @Test
+        // 4
     void shouldNotBuyWithCardNumber16Nulls() {
         mainPage.buyFillWithoutNumber(DataHelper.getValidAuthInfo());
         mainPage.cardNumber16Nulls();
@@ -62,7 +69,8 @@ public class BuyTest {
         Duration.ofSeconds(20);
     }
 
-    @Test   // 5
+    @Test
+        // 5
     void shouldNotBuyWithCardNumber15Digits() {
         mainPage.buyFillWithoutNumber(DataHelper.getValidAuthInfo());
         mainPage.cardNumberLessThan15Digits();
@@ -70,7 +78,8 @@ public class BuyTest {
         mainPage.wrongData("Неверный формат");
     }
 
-    @Test   // 6
+    @Test
+        // 6
     void shouldNotBuyWithMonth1Digit() {
         mainPage.buyFillWithoutMonth(DataHelper.getValidAuthInfo());
         mainPage.month1Digit();
@@ -78,7 +87,8 @@ public class BuyTest {
         mainPage.wrongData("Неверный формат");
     }
 
-    @Test   // 7
+    @Test
+        // 7
     void shouldNotBuyWithMonthMoreThan12() {
         mainPage.buyFillWithoutMonth(DataHelper.getValidAuthInfo());
         mainPage.monthMoreThan12();
@@ -86,7 +96,8 @@ public class BuyTest {
         mainPage.wrongData("Неверно указан срок действия карты");
     }
 
-    @Test   // 8
+    @Test
+        // 8
     void shouldNotBuyWithMonthEmpty() {
         mainPage.buyFillWithoutMonth(DataHelper.getValidAuthInfo());
         mainPage.monthEmpty();
@@ -94,7 +105,8 @@ public class BuyTest {
         mainPage.wrongData("Неверный формат");
     }
 
-    @Test   // 9
+    @Test
+        // 9
     void shouldNotBuyWithMonthWithSpace() {
         mainPage.buyFillWithoutMonth(DataHelper.getValidAuthInfo());
         mainPage.month1Space();
@@ -102,7 +114,8 @@ public class BuyTest {
         mainPage.wrongData("Неверный формат");
     }
 
-    @Test   // 10
+    @Test
+        // 10
     void shouldNotBuyWithMonthWithTwoNulls() {
         mainPage.buyFillWithoutMonth(DataHelper.getValidAuthInfo());
         mainPage.month2Nulls();
@@ -110,7 +123,8 @@ public class BuyTest {
         mainPage.wrongData("Неверно указан срок действия карты");
     }
 
-    @Test   // 11
+    @Test
+        // 11
     void shouldNotBuyWithYearMoreThan5() {
         mainPage.buyFillWithoutYear(DataHelper.getValidAuthInfo());
         mainPage.yearMoreThan5();
@@ -118,7 +132,8 @@ public class BuyTest {
         mainPage.wrongData("Неверно указан срок действия карты");
     }
 
-    @Test   // 12
+    @Test
+        // 12
     void shouldNotBuyWithYearLessThanNow() {
         mainPage.buyFillWithoutYear(DataHelper.getValidAuthInfo());
         mainPage.yearLessThanMin();
@@ -126,7 +141,8 @@ public class BuyTest {
         mainPage.wrongData("Истёк срок действия карты");
     }
 
-    @Test   // 13
+    @Test
+        // 13
     void shouldNotBuyWithYearWrongData() {
         mainPage.buyFillWithoutYear(DataHelper.getValidAuthInfo());
         mainPage.yearWithWrongSymbol();
@@ -134,7 +150,8 @@ public class BuyTest {
         mainPage.wrongData("Неверный формат");
     }
 
-    @Test   // 14
+    @Test
+        // 14
     void shouldNotBuyWithYearWithTwoNulls() {
         mainPage.buyFillWithoutYear(DataHelper.getValidAuthInfo());
         mainPage.year2Nulls();
@@ -142,7 +159,8 @@ public class BuyTest {
         mainPage.wrongData("Истёк срок действия карты");
     }
 
-    @Test   // 15
+    @Test
+        // 15
     void shouldNotBuyWithYearWithSpace() {
         mainPage.buyFillWithoutYear(DataHelper.getValidAuthInfo());
         mainPage.year1Space();
@@ -150,7 +168,8 @@ public class BuyTest {
         mainPage.wrongData("Неверный формат");
     }
 
-    @Test   // 16
+    @Test
+        // 16
     void shouldNotBuyWithYearEmpty() {
         mainPage.buyFillWithoutYear(DataHelper.getValidAuthInfo());
         mainPage.yearEmpty();
@@ -158,35 +177,44 @@ public class BuyTest {
         mainPage.wrongData("Неверный формат");
     }
 
-    @Test   // 17
+    @Test
+        // 17
     void shouldNotBuyWithName1Space() {
         mainPage.buyFillWithoutName(DataHelper.getValidAuthInfo());
         mainPage.name1Space();
         mainPage.continueClick();
         mainPage.wrongData("Поле обязательно для заполнения");
     }
-    @Test   // 18
+
+    @Test
+        // 18
     void shouldNotBuyWithNameEnglishAndCyrillic() {
         mainPage.buyFillWithoutName(DataHelper.getValidAuthInfo());
         mainPage.nameEnglishAndRussian();
         mainPage.continueClick();
         mainPage.wrongData("Неверный формат");
     }
-    @Test   // 19
+
+    @Test
+        // 19
     void shouldNotBuyWithNameInvalid() {
         mainPage.buyFillWithoutName(DataHelper.getValidAuthInfo());
         mainPage.nameInvalid();
         mainPage.continueClick();
         mainPage.wrongData("Неверный формат");
     }
-    @Test   // 20
+
+    @Test
+        // 20
     void shouldNotBuyWithNameEmpty() {
         mainPage.buyFillWithoutName(DataHelper.getValidAuthInfo());
         mainPage.nameEmpty();
         mainPage.continueClick();
         mainPage.wrongData("Поле обязательно для заполнения");
     }
-    @Test   // 21
+
+    @Test
+        // 21
     void shouldNotBuyWithCVCWrongSymbol() {
         mainPage.buyFillWithoutCode(DataHelper.getValidAuthInfo());
         mainPage.code2NumbersWithSymbol();
@@ -194,7 +222,8 @@ public class BuyTest {
         mainPage.wrongData("Неверный формат");
     }
 
-    @Test   // 22
+    @Test
+        // 22
     void shouldNotBuyWithCVCWith1Space() {
         mainPage.buyFillWithoutCode(DataHelper.getValidAuthInfo());
         mainPage.code1Space();
@@ -202,7 +231,8 @@ public class BuyTest {
         mainPage.wrongData("Неверный формат");
     }
 
-    @Test   // 23
+    @Test
+        // 23
     void shouldNotBuyWithCVCEmpty() {
         mainPage.buyFillWithoutCode(DataHelper.getValidAuthInfo());
         mainPage.codeEmpty();
@@ -210,7 +240,8 @@ public class BuyTest {
         mainPage.wrongData("Неверный формат");
     }
 
-    @Test   // 24
+    @Test
+        // 24
     void shouldNotBuyWithAllFieldsEmpty() {
         mainPage.buttonBuyClick();
         mainPage.continueClick();

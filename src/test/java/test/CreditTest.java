@@ -13,14 +13,17 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class CreditTest {
     MainPage mainPage;
+
     @BeforeAll
     static void setUpAll() {
         SelenideLogger.addListener("allure", new AllureSelenide());
     }
+
     @AfterAll
     static void tearDownAll() {
         SelenideLogger.removeListener("allure");
     }
+
     @BeforeEach
     void mainPageOpen() {
         mainPage = open("http://localhost:8080", MainPage.class);
@@ -170,35 +173,44 @@ public class CreditTest {
         mainPage.wrongData("Неверный формат");
     }
 
-    @Test   // 17
+    @Test
+        // 17
     void shouldNotCreditWithName1Space() {
         mainPage.creditFillWithoutName(DataHelper.getValidAuthInfo());
         mainPage.name1Space();
         mainPage.continueClick();
         mainPage.wrongData("Поле обязательно для заполнения");
     }
-    @Test   // 18
+
+    @Test
+        // 18
     void shouldNotCreditWithNameEnglishAndCyrillic() {
         mainPage.creditFillWithoutName(DataHelper.getValidAuthInfo());
         mainPage.nameEnglishAndRussian();
         mainPage.continueClick();
         mainPage.wrongData("Неверный формат");
     }
-    @Test   // 19
+
+    @Test
+        // 19
     void shouldNotCreditWithNameInvalid() {
         mainPage.creditFillWithoutName(DataHelper.getValidAuthInfo());
         mainPage.nameInvalid();
         mainPage.continueClick();
         mainPage.wrongData("Неверный формат");
     }
-    @Test   // 20
+
+    @Test
+        // 20
     void shouldNotCreditWithNameEmpty() {
         mainPage.creditFillWithoutName(DataHelper.getValidAuthInfo());
         mainPage.nameEmpty();
         mainPage.continueClick();
         mainPage.wrongData("Поле обязательно для заполнения");
     }
-    @Test   // 21
+
+    @Test
+        // 21
     void shouldNotCreditWithCVCWrongSymbol() {
         mainPage.creditFillWithoutCode(DataHelper.getValidAuthInfo());
         mainPage.code2NumbersWithSymbol();
@@ -206,7 +218,8 @@ public class CreditTest {
         mainPage.wrongData("Неверный формат");
     }
 
-    @Test   // 22
+    @Test
+        // 22
     void shouldNotCreditWithCVCWith1Space() {
         mainPage.creditFillWithoutCode(DataHelper.getValidAuthInfo());
         mainPage.code1Space();
@@ -214,7 +227,8 @@ public class CreditTest {
         mainPage.wrongData("Неверный формат");
     }
 
-    @Test   // 23
+    @Test
+        // 23
     void shouldNotCreditWithCVCEmpty() {
         mainPage.creditFillWithoutCode(DataHelper.getValidAuthInfo());
         mainPage.codeEmpty();
@@ -222,7 +236,8 @@ public class CreditTest {
         mainPage.wrongData("Неверный формат");
     }
 
-    @Test   // 24
+    @Test
+        // 24
     void shouldNotCreditWithAllFieldsEmpty() {
         mainPage.buttonCreditClick();
         mainPage.continueClick();

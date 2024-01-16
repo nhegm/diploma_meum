@@ -11,14 +11,17 @@ import static com.codeborne.selenide.Selenide.*;
 
 public class CommonTest {
     MainPage mainPage;
+
     @BeforeAll
     static void setUpAll() {
         SelenideLogger.addListener("allure", new AllureSelenide());
     }
+
     @AfterAll
     static void tearDownAll() {
         SelenideLogger.removeListener("allure");
     }
+
     @BeforeEach
     void mainPageOpen() {
         mainPage = open("http://localhost:8080", MainPage.class);
@@ -31,7 +34,7 @@ public class CommonTest {
         mainPage.buyFill(DataHelper.getApprovedAuthInfo());
         mainPage.continueClick();
         mainPage.success();
-        Assertions.assertEquals(SQLHelper.getBuyStatus(),"APPROVED");
+        Assertions.assertEquals(SQLHelper.getBuyStatus(), "APPROVED");
     }
 
     @Test
@@ -41,7 +44,7 @@ public class CommonTest {
         mainPage.creditFill(DataHelper.getApprovedAuthInfo());
         mainPage.continueClick();
         mainPage.success();
-        Assertions.assertEquals(SQLHelper.getCreditStatus(),"APPROVED");
+        Assertions.assertEquals(SQLHelper.getCreditStatus(), "APPROVED");
     }
 
     @Test
@@ -51,7 +54,7 @@ public class CommonTest {
         mainPage.buyFill(DataHelper.getDeclinedAuthInfo());
         mainPage.continueClick();
         mainPage.error();
-        Assertions.assertEquals(SQLHelper.getBuyStatus(),"DECLINED");
+        Assertions.assertEquals(SQLHelper.getBuyStatus(), "DECLINED");
     }
 
     @Test
@@ -61,6 +64,6 @@ public class CommonTest {
         mainPage.creditFill(DataHelper.getDeclinedAuthInfo());
         mainPage.continueClick();
         mainPage.error();
-        Assertions.assertEquals(SQLHelper.getCreditStatus(),"DECLINED");
+        Assertions.assertEquals(SQLHelper.getCreditStatus(), "DECLINED");
     }
 }

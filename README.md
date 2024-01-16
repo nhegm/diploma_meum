@@ -38,3 +38,7 @@ Google Chrome последней версии
 6. Запустить тесты командой:
     ./gradlew clean test "-Ddb.url=jdbc:postgresql://localhost:5432/app"
 ```
+
+### Отчёты
+
+[Отчёт по тестированию](https://github.com/nhegm/diploma_meum/blob/77f1bea335578eaaacccf98d0dab2bc3cfa047fd/docs/Report.md)
