@@ -50,7 +50,7 @@ public class DataHelper {
 
     public static String generateMonthMoreThan12() {
         Random rand = new Random();
-        int month = rand.nextInt(33) + 12;
+        int month = rand.nextInt(33) + 13;
         return String.valueOf(month);
     }
 
@@ -108,6 +108,13 @@ public class DataHelper {
         Faker faker = new Faker(new Locale("ru"));
         name = name + faker.name().lastName();
         return name;
+    }
+
+    public static String generateName1Space() {
+        return " ";
+    }
+    public static String generateNameEmpty() {
+        return "";
     }
 
     public static String generateCVC2NumbersWithSymbol() {

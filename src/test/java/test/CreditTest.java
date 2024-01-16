@@ -113,7 +113,7 @@ public class CreditTest {
         mainPage.creditFillWithoutMonth(DataHelper.getValidAuthInfo());
         mainPage.month2Nulls();
         mainPage.continueClick();
-        mainPage.wrongData("Неверный формат");
+        mainPage.wrongData("Неверно указан срок действия карты");
     }
 
     @Test
@@ -170,44 +170,35 @@ public class CreditTest {
         mainPage.wrongData("Неверный формат");
     }
 
-    @Test
-        // 17
-    void shouldNotCreditWithNameCyrillic() {
+    @Test   // 17
+    void shouldNotCreditWithName1Space() {
         mainPage.creditFillWithoutName(DataHelper.getValidAuthInfo());
-        mainPage.nameRussian();
+        mainPage.name1Space();
         mainPage.continueClick();
-        mainPage.wrongData("Неверный формат");
+        mainPage.wrongData("Поле обязательно для заполнения");
     }
-
-    @Test
-        // 18
-    void shouldNotCreditWithNameInvalid() {
-        mainPage.creditFillWithoutName(DataHelper.getValidAuthInfo());
-        mainPage.nameInvalid();
-        mainPage.continueClick();
-        mainPage.wrongData("Неверный формат");
-    }
-
-    @Test
-        // 19
+    @Test   // 18
     void shouldNotCreditWithNameEnglishAndCyrillic() {
         mainPage.creditFillWithoutName(DataHelper.getValidAuthInfo());
         mainPage.nameEnglishAndRussian();
         mainPage.continueClick();
         mainPage.wrongData("Неверный формат");
     }
-
-    @Test
-        // 20
-    void shouldNotCreditWithNameWithSymbols() {
+    @Test   // 19
+    void shouldNotCreditWithNameInvalid() {
         mainPage.creditFillWithoutName(DataHelper.getValidAuthInfo());
-        mainPage.nameInvalidWithSomeSymbols();
+        mainPage.nameInvalid();
         mainPage.continueClick();
         mainPage.wrongData("Неверный формат");
     }
-
-    @Test
-        // 21
+    @Test   // 20
+    void shouldNotCreditWithNameEmpty() {
+        mainPage.creditFillWithoutName(DataHelper.getValidAuthInfo());
+        mainPage.nameEmpty();
+        mainPage.continueClick();
+        mainPage.wrongData("Поле обязательно для заполнения");
+    }
+    @Test   // 21
     void shouldNotCreditWithCVCWrongSymbol() {
         mainPage.creditFillWithoutCode(DataHelper.getValidAuthInfo());
         mainPage.code2NumbersWithSymbol();
@@ -215,20 +206,25 @@ public class CreditTest {
         mainPage.wrongData("Неверный формат");
     }
 
-    @Test
-        // 22
-    void shouldNotCreditWithCVCWithSpace() {
+    @Test   // 22
+    void shouldNotCreditWithCVCWith1Space() {
         mainPage.creditFillWithoutCode(DataHelper.getValidAuthInfo());
         mainPage.code1Space();
         mainPage.continueClick();
         mainPage.wrongData("Неверный формат");
     }
 
-    @Test
-        // 23
+    @Test   // 23
     void shouldNotCreditWithCVCEmpty() {
         mainPage.creditFillWithoutCode(DataHelper.getValidAuthInfo());
         mainPage.codeEmpty();
+        mainPage.continueClick();
+        mainPage.wrongData("Неверный формат");
+    }
+
+    @Test   // 24
+    void shouldNotCreditWithAllFieldsEmpty() {
+        mainPage.buttonCreditClick();
         mainPage.continueClick();
         mainPage.wrongData("Неверный формат");
     }

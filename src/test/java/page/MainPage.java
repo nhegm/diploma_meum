@@ -21,7 +21,7 @@ public class MainPage {
     private SelenideElement codeField = $$(".input__control").get(4);
     private SelenideElement buttonContinue = $$(".button").get(2);
     private SelenideElement successNote = $$(".notification__title").get(0);
-    private SelenideElement errorNote = $$(".notification__title").get(1);
+    private SelenideElement errorNote = $$(".notification__title").get(0);
     private SelenideElement substringMessage = $(".input__sub");
 
     private void fieldsFill(DataHelper.AuthInfo info) {
@@ -65,6 +65,14 @@ public class MainPage {
         monthField.setValue(info.getMonth());
         yearField.setValue(info.getYear());
         nameField.setValue(info.getCardHolder());
+    }
+
+    public void buttonBuyClick() {
+        buttonBuy.click();
+    }
+
+    public void buttonCreditClick() {
+        buttonCredit.click();
     }
 
     public void buyFill(DataHelper.AuthInfo info) {
@@ -199,16 +207,12 @@ public class MainPage {
         nameField.setValue(DataHelper.generateInvalidNameRussian());
     }
 
-    public void nameInvalid() {
-        nameField.setValue(DataHelper.generateInvalidNameWithSomeSymbols());
-    }
+    public void nameInvalid() { nameField.setValue(DataHelper.generateInvalidNameWithSomeSymbols()); }
+    public void name1Space() { nameField.setValue(DataHelper.generateName1Space()); }
 
+    public void nameEmpty() { nameField.setValue(DataHelper.generateNameEmpty()); }
     public void nameEnglishAndRussian() {
         nameField.setValue(DataHelper.generateInvalidNameEnglishAndRussian());
-    }
-
-    public void nameInvalidWithSomeSymbols() {
-        nameField.setValue(DataHelper.generateInvalidNameWithSomeSymbols());
     }
 
     public void code2NumbersWithSymbol() {
